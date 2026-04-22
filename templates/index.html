@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fagie Foods | Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #f1c40f; --dark: #1a1a2e; --cream: #fdfbf7; }
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--cream); 
+            background-image: radial-gradient(#e5e5f7 0.5px, transparent 0.5px);
+            background-size: 20px 20px; /* Subtle pattern */
+            display: flex; justify-content: center; padding: 40px 20px; margin: 0;
+        }
+        .card { 
+            background: white; padding: 40px; border-radius: 30px; 
+            box-shadow: 0 20px 60px rgba(26, 26, 46, 0.08); 
+            width: 100%; max-width: 600px; border: 1px solid rgba(0,0,0,0.03);
+        }
+        h1 { text-align: center; color: var(--dark); font-weight: 700; letter-spacing: -1px; }
+        .input-box { margin-bottom: 20px; position: relative; }
+        .input-box i { position: absolute; left: 18px; top: 15px; color: var(--gold); }
+        .input-box input, .input-box textarea { 
+            width: 100%; padding: 14px 15px 14px 45px; border: 2px solid #f0f0f0; 
+            border-radius: 15px; box-sizing: border-box; transition: 0.3s; font-size: 15px;
+        }
+        .input-box input:focus { border-color: var(--gold); outline: none; background: #fffdf5; }
+
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+        .menu-item { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 20px; border: 2px solid #f8f8f8; border-radius: 20px; 
+            transition: 0.3s; cursor: pointer; background: #fff;
+        }
+        .menu-item:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(241, 196, 15, 0.1); }
+        .menu-item b { color: #27ae60; }
+
+        .delivery-zone { 
+            background: var(--dark); color: white; padding: 25px; 
+            border-radius: 20px; margin-top: 25px; transition: 0.4s;
+        }
+        button { 
+            width: 100%; padding: 18px; background: var(--gold); color: var(--dark); 
+            border: none; border-radius: 15px; font-weight: 700; font-size: 1.1rem;
+            cursor: pointer; margin-top: 20px; transition: 0.3s; box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+        }
+        button:hover { transform: scale(1.02); background: #e2b90d; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1><i class="fas fa-utensils" style="color: var(--gold);"></i> Fagie Menu</h1>
+        <form action="/order" method="post">
+            <div class="input-box"><i class="fas fa-user"></i><input type="text" name="customer_name" placeholder="Full Name" required></div>
+            <div class="input-box"><i class="fas fa-phone"></i><input type="tel" name="phone" placeholder="Contact Number" required></div>
+
+            <div class="menu-grid">
+                <label class="menu-item"><span>🍔 Burger</span> <b>15k</b><input type="checkbox" name="food" value="Burger"></label>
+                <label class="menu-item"><span>🍕 Pizza</span> <b>35k</b><input type="checkbox" name="food" value="Pizza"></label>
+                <label class="menu-item"><span>🍗 Chicken</span> <b>12k</b><input type="checkbox" name="food" value="Chicken (2pc)"></label>
+                <label class="menu-item"><span>🌯 Rolex</span> <b>6k</b><input type="checkbox" name="food" value="Rolex (Special)"></label>
+                <label class="menu-item"><span>🍟 Fries</span> <b>5k</b><input type="checkbox" name="food" value="Fries"></label>
+                <label class="menu-item"><span>🥤 Soda</span> <b>2.5k</b><input type="checkbox" name="food" value="Soda"></label>
+            </div>
+
+            <div class="input-box">
+                <textarea name="instructions" rows="2" placeholder="Notes (No onions, extra salt...)" style="padding-left:15px;"></textarea>
+            </div>
+
+            <div class="delivery-zone">
+                <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+                    <input type="checkbox" name="delivery" onclick="document.getElementById('a').style.display=this.checked?'block':'none'">
+                    <span><i class="fas fa-truck"></i> Deliver to Mukono? (+5,000/-)</span>
+                </label>
+                <input type="text" name="address" id="a" placeholder="Where in Mukono?" style="display:none; width:100%; margin-top:15px; padding:12px; border-radius:10px; border:none;">
+            </div>
+
+            <button type="submit">PLACE YOUR ORDER</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fagie Foods | Kitchen</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background: #f4f7f6; padding: 30px; margin: 0; }
+        .container { 
+            background: white; padding: 30px; border-radius: 25px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05); max-width: 1200px; margin: auto;
+        }
+        .header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: #1a1a2e; color: white; padding: 20px 30px; 
+            border-radius: 20px; margin-bottom: 30px;
+        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0 15px; }
+        th { padding: 15px; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        td { 
+            padding: 20px; background: #fff; border-top: 1px solid #f0f0f0; 
+            border-bottom: 1px solid #f0f0f0; 
+        }
+        td:first-child { border-left: 1px solid #f0f0f0; border-radius: 15px 0 0 15px; }
+        td:last-child { border-right: 1px solid #f0f0f0; border-radius: 0 15px 15px 0; }
+        
+        .badge { 
+            padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; 
+            background: #fff9e6; color: #f1c40f; 
+        }
+        .badge.done { background: #e8f5e9; color: #2e7d32; }
+        .note-box { 
+            background: #fff4e5; padding: 10px; border-radius: 10px; 
+            border-left: 5px solid #ffa502; margin-top: 10px; font-size: 13px; 
+        }
+        .btn-done { 
+            background: #1a1a2e; color: white; padding: 10px 20px; 
+            border-radius: 12px; text-decoration: none; font-size: 12px; font-weight: 600;
+        }
+        .btn-done:hover { background: #f1c40f; color: #1a1a2e; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2 style="margin:0;"><i class="fas fa-fire"></i> Kitchen Queue</h2>
+            <a href="/admin-logout" style="color: #ff7675; text-decoration: none; font-weight: 600;"><i class="fas fa-power-off"></i> Logout</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Order</th>
+                    <th>Customer</th>
+                    <th>Details</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for o in orders %}
+                <tr>
+                    <td><b style="color:#888;">#{{ o.id }}</b></td>
+                    <td><b>{{ o.name }}</b><br><small style="color:#999;">{{ o.phone }}</small></td>
+                    <td>
+                        <span style="font-weight:600;">{{ o.food_items|join(', ') }}</span><br>
+                        <small style="color: #0984e3;"><i class="fas fa-map-marker-alt"></i> {{ o.type }}</small>
+                        {% if o.instructions %}
+                        <div class="note-box"><b>Note:</b> {{ o.instructions }}</div>
+                        {% endif %}
+                    </td>
+                    <td><b style="color:#27ae60;">{{ "{:,}".format(o.total) }}/-</b></td>
+                    <td><span class="badge {% if 'Completed' in o.status %}done{% endif %}">{{ o.status }}</span></td>
+                    <td>
+                        {% if o.status == "Pending" %}
+                        <a href="{{ url_for('complete_order', order_id=o.id) }}" class="btn-done">Complete</a>
+                        {% else %}
+                        <span style="color:#27ae60;"><i class="fas fa-check-double"></i> Ready</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fagie Foods | Success</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            background: #1a1a2e; font-family: 'Poppins', sans-serif; 
+            display: flex; justify-content: center; align-items: center; 
+            height: 100vh; margin: 0; 
+        }
+        .receipt { 
+            background: white; padding: 50px 40px; border-radius: 35px; 
+            text-align: center; width: 380px; position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+        .success-icon { 
+            font-size: 80px; color: #27ae60; margin-bottom: 20px;
+            filter: drop-shadow(0 10px 15px rgba(39, 174, 96, 0.2));
+        }
+        .info { 
+            background: #fdfbf7; padding: 25px; border-radius: 20px; 
+            text-align: left; margin: 25px 0; border: 1px solid #eee;
+        }
+        .total { 
+            font-size: 28px; color: #1a1a2e; font-weight: 800; 
+            margin-top: 15px; border-top: 2px dashed #ccc; padding-top: 15px; text-align: center;
+        }
+        .btn { 
+            display: block; background: #f1c40f; color: #1a1a2e; 
+            padding: 18px; border-radius: 15px; text-decoration: none; 
+            font-weight: 700; transition: 0.3s;
+        }
+        .btn:hover { background: #fff; box-shadow: 0 5px 15px rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <i class="fas fa-check-circle success-icon"></i>
+        <h2 style="margin:0; font-size: 24px;">Order Confirmed!</h2>
+        <p style="color: #666;">We're firing up the kitchen for you.</p>
+        <div class="info">
+            <p><i class="fas fa-user" style="color: #f1c40f;"></i> <b>{{ name }}</b></p>
+            <p><i class="fas fa-hamburger" style="color: #f1c40f;"></i> {{ food_list|join(', ') }}</p>
+            {% if instructions %}
+            <p style="color: #e67e22; font-size: 14px;"><i class="fas fa-comment"></i> <i>"{{ instructions }}"</i></p>
+            {% endif %}
+            <p><i class="fas fa-map-marker-alt" style="color: #f1c40f;"></i> {{ type }}</p>
+            <div class="total">UGX {{ "{:,}".format(total) }}</div>
+        </div>
+        <a href="/" class="btn">BACK TO HOME</a>
+    </div>
+</body>
+</html>
