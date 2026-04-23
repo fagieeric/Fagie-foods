@@ -188,12 +188,13 @@
 
     <script>
         function checkPasscode() {
-            const code = document.getElementById('passcodeField').value;
-            // You can change '1234' to whatever passcode you want
-            if (code === '1234') {
-                window.location.href = "admin.html";
-            } else {
-                alert("Incorrect passcode!");
+    const code = document.getElementById('passcodeField').value;
+    if (code === '1234') {
+        // Try to go to admin.html. 
+        // If your file is named Admin.html, change this to "Admin.html"
+        window.location.href = "admin.html"; 
+    } else {
+        alert("Incorrect passcode!");
             }
         }
     </script>
