@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fagie Foods | Kitchen</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -16,7 +17,7 @@
             border-radius: 20px; margin-bottom: 30px;
         }
         table { width: 100%; border-collapse: separate; border-spacing: 0 15px; }
-        th { padding: 15px; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; }
+        th { padding: 15px; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; text-align: left; }
         td { 
             padding: 20px; background: #fff; border-top: 1px solid #f0f0f0; 
             border-bottom: 1px solid #f0f0f0; 
@@ -36,6 +37,7 @@
         .btn-done { 
             background: #1a1a2e; color: white; padding: 10px 20px; 
             border-radius: 12px; text-decoration: none; font-size: 12px; font-weight: 600;
+            display: inline-block;
         }
         .btn-done:hover { background: #f1c40f; color: #1a1a2e; }
     </style>
@@ -44,7 +46,7 @@
     <div class="container">
         <div class="header">
             <h2 style="margin:0;"><i class="fas fa-fire"></i> Kitchen Queue</h2>
-            <a href="/admin-logout" style="color: #ff7675; text-decoration: none; font-weight: 600;"><i class="fas fa-power-off"></i> Logout</a>
+            <a href="index.html" style="color: #ff7675; text-decoration: none; font-weight: 600;"><i class="fas fa-power-off"></i> Logout</a>
         </div>
         <table>
             <thead>
@@ -58,28 +60,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for o in orders %}
                 <tr>
-                    <td><b style="color:#888;">#{{ o.id }}</b></td>
-                    <td><b>{{ o.name }}</b><br><small style="color:#999;">{{ o.phone }}</small></td>
+                    <td><b style="color:#888;">#101</b></td>
+                    <td><b>John Doe</b><br><small style="color:#999;">+256 700 000 000</small></td>
                     <td>
-                        <span style="font-weight:600;">{{ o.food_items|join(', ') }}</span><br>
-                        <small style="color: #0984e3;"><i class="fas fa-map-marker-alt"></i> {{ o.type }}</small>
-                        {% if o.instructions %}
-                        <div class="note-box"><b>Note:</b> {{ o.instructions }}</div>
-                        {% endif %}
+                        <span style="font-weight:600;">Jollof Rice, Grilled Chicken</span><br>
+                        <small style="color: #0984e3;"><i class="fas fa-map-marker-alt"></i> Delivery</small>
+                        <div class="note-box"><b>Note:</b> Please make it spicy!</div>
                     </td>
-                    <td><b style="color:#27ae60;">{{ "{:,}".format(o.total) }}/-</b></td>
-                    <td><span class="badge {% if 'Completed' in o.status %}done{% endif %}">{{ o.status }}</span></td>
+                    <td><b style="color:#27ae60;">25,000/-</b></td>
+                    <td><span class="badge">Pending</span></td>
                     <td>
-                        {% if o.status == "Pending" %}
-                        <a href="{{ url_for('complete_order', order_id=o.id) }}" class="btn-done">Complete</a>
-                        {% else %}
-                        <span style="color:#27ae60;"><i class="fas fa-check-double"></i> Ready</span>
-                        {% endif %}
+                        <a href="#" class="btn-done" onclick="alert('Order marked as complete!')">Complete</a>
                     </td>
                 </tr>
-                {% endfor %}
             </tbody>
         </table>
     </div>
