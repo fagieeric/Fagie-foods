@@ -38,7 +38,6 @@
             padding: 20px;
         }
 
-        /* Copperplate Gothic Light Styling */
         .hero h1 { 
             font-family: "Copperplate Light", "Copperplate Gothic Light", "Copperplate", serif; 
             font-size: 3.5rem; 
@@ -57,7 +56,6 @@
             letter-spacing: 2px; 
         }
 
-        /* Buttons Styling */
         .button-group {
             display: flex;
             gap: 15px;
@@ -75,9 +73,9 @@
             align-items: center; 
             gap: 10px; 
             font-size: 1rem;
+            cursor: pointer;
         }
 
-        /* Menu Button - Outline Style */
         .btn-menu {
             background: transparent;
             color: var(--white);
@@ -89,7 +87,6 @@
             transform: scale(1.05);
         }
 
-        /* WhatsApp Button - Solid Style */
         .btn-order { 
             background: var(--whatsapp); 
             color: white; 
@@ -102,7 +99,6 @@
             border-color: #1ebd59;
         }
 
-        /* Info Section */
         .info-bar { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
@@ -128,7 +124,6 @@
             align-items:center; 
         }
 
-        /* Responsive Fixes */
         @media (max-width: 600px) {
             .hero h1 { font-size: 2.2rem; letter-spacing: 2px; }
             .hero p { font-size: 1.2rem; }
@@ -144,7 +139,7 @@
         <p>"Serene Feels"</p>
         
         <div class="button-group">
-            <a href="/menu" class="btn btn-menu">
+            <a href="menu.html" class="btn btn-menu">
                 <i class="fas fa-utensils"></i> VIEW MENU
             </a>
 
@@ -182,15 +177,26 @@
     <div id="adminModal">
         <div style="background:white; padding:40px; border-radius:20px; width:300px; text-align:center;">
             <h3>Staff Login</h3>
-            <form action="/admin-login" method="post">
-                <input type="password" name="passcode" placeholder="Passcode" style="width:100%; padding:12px; margin-bottom:20px; border-radius:8px; border:1px solid #ddd;">
-                <button type="submit" style="width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:8px; cursor:pointer;">Enter Dashboard</button>
-            </form>
+            <input type="password" id="passcodeField" placeholder="Passcode" style="width:100%; padding:12px; margin-bottom:20px; border-radius:8px; border:1px solid #ddd;">
+            <button onclick="checkPasscode()" style="width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:8px; cursor:pointer;">Enter Dashboard</button>
+            
             <button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:15px; background:none; border:none; color:red; cursor:pointer;">Close</button>
         </div>
     </div>
 
     <footer>&copy; 2026 Fagie Foods & Bevies Mukono.</footer>
+
+    <script>
+        function checkPasscode() {
+            const code = document.getElementById('passcodeField').value;
+            // You can change '1234' to whatever passcode you want
+            if (code === '1234') {
+                window.location.href = "admin.html";
+            } else {
+                alert("Incorrect passcode!");
+            }
+        }
+    </script>
 
 </body>
 </html>
