@@ -3,82 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fagie Foods | Order</title>
+    <title>Fagie Foods & Bevies | Mukono's Best</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #f1c40f; --dark: #1a1a2e; --cream: #fdfbf7; }
+        :root { 
+            --primary: #f1c40f; 
+            --dark: #1a1a2e; 
+            --white: #ffffff; 
+            --whatsapp: #25D366; 
+        }
+
         body { 
             font-family: 'Poppins', sans-serif; 
-            background-color: var(--cream); 
-            background-image: radial-gradient(#e5e5f7 0.5px, transparent 0.5px);
-            background-size: 20px 20px; /* Subtle pattern */
-            display: flex; justify-content: center; padding: 40px 20px; margin: 0;
+            margin: 0; 
+            background: var(--white); 
+            color: var(--dark); 
+            overflow-x: hidden; 
         }
-        .card { 
-            background: white; padding: 40px; border-radius: 30px; 
-            box-shadow: 0 20px 60px rgba(26, 26, 46, 0.08); 
-            width: 100%; max-width: 600px; border: 1px solid rgba(0,0,0,0.03);
-        }
-        h1 { text-align: center; color: var(--dark); font-weight: 700; letter-spacing: -1px; }
-        .input-box { margin-bottom: 20px; position: relative; }
-        .input-box i { position: absolute; left: 18px; top: 15px; color: var(--gold); }
-        .input-box input, .input-box textarea { 
-            width: 100%; padding: 14px 15px 14px 45px; border: 2px solid #f0f0f0; 
-            border-radius: 15px; box-sizing: border-box; transition: 0.3s; font-size: 15px;
-        }
-        .input-box input:focus { border-color: var(--gold); outline: none; background: #fffdf5; }
 
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-        .menu-item { 
-            display: flex; align-items: center; justify-content: space-between; 
-            padding: 20px; border: 2px solid #f8f8f8; border-radius: 20px; 
-            transition: 0.3s; cursor: pointer; background: #fff;
+        /* Hero Section Styling */
+        .hero {
+            height: 85vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; 
+            background-position: center;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+            color: white; 
+            padding: 20px;
         }
-        .menu-item:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 20px rgba(241, 196, 15, 0.1); }
-        .menu-item b { color: #27ae60; }
 
-        .delivery-zone { 
-            background: var(--dark); color: white; padding: 25px; 
-            border-radius: 20px; margin-top: 25px; transition: 0.4s;
+        /* Copperplate Gothic Light Styling */
+        .hero h1 { 
+            font-family: "Copperplate Light", "Copperplate Gothic Light", "Copperplate", serif; 
+            font-size: 3.5rem; 
+            font-weight: 300;
+            margin: 0; 
+            color: var(--primary); 
+            text-transform: uppercase; 
+            letter-spacing: 5px;
         }
-        button { 
-            width: 100%; padding: 18px; background: var(--gold); color: var(--dark); 
-            border: none; border-radius: 15px; font-weight: 700; font-size: 1.1rem;
-            cursor: pointer; margin-top: 20px; transition: 0.3s; box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+
+        .hero p { 
+            font-size: 1.5rem; 
+            margin: 15px 0 40px; 
+            font-weight: 300; 
+            font-style: italic; 
+            letter-spacing: 2px; 
         }
-        button:hover { transform: scale(1.02); background: #e2b90d; }
+
+        /* Buttons Styling */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn { 
+            padding: 18px 35px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            transition: 0.3s; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 1rem;
+        }
+
+        /* Menu Button - Outline Style */
+        .btn-menu {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--primary);
+        }
+        .btn-menu:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: scale(1.05);
+        }
+
+        /* WhatsApp Button - Solid Style */
+        .btn-order { 
+            background: var(--whatsapp); 
+            color: white; 
+            border: 2px solid var(--whatsapp);
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); 
+        }
+        .btn-order:hover { 
+            transform: scale(1.05); 
+            background: #1ebd59; 
+            border-color: #1ebd59;
+        }
+
+        /* Info Section */
+        .info-bar { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 40px; 
+            padding: 60px 10%; 
+            background: #fff; 
+        }
+        .info-card { text-align: center; transition: 0.3s; }
+        .info-card:hover { transform: translateY(-10px); }
+        .info-card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 20px; }
+        .info-card a { color: var(--dark); text-decoration: none; font-weight: bold; font-size: 1.2rem; }
+
+        footer { background: var(--dark); color: #777; text-align: center; padding: 25px; }
+        
+        #adminModal { 
+            display:none; 
+            position:fixed; 
+            top:0; left:0; 
+            width:100%; height:100%; 
+            background:rgba(0,0,0,0.9); 
+            z-index:9999; 
+            justify-content:center; 
+            align-items:center; 
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; letter-spacing: 2px; }
+            .hero p { font-size: 1.2rem; }
+            .button-group { flex-direction: column; width: 100%; align-items: center; }
+            .btn { width: 80%; justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h1><i class="fas fa-utensils" style="color: var(--gold);"></i> Fagie Menu</h1>
-        <form action="/order" method="post">
-            <div class="input-box"><i class="fas fa-user"></i><input type="text" name="customer_name" placeholder="Full Name" required></div>
-            <div class="input-box"><i class="fas fa-phone"></i><input type="tel" name="phone" placeholder="Contact Number" required></div>
 
-            <div class="menu-grid">
-                <label class="menu-item"><span>🍔 Burger</span> <b>15k</b><input type="checkbox" name="food" value="Burger"></label>
-                <label class="menu-item"><span>🍕 Pizza</span> <b>35k</b><input type="checkbox" name="food" value="Pizza"></label>
-                <label class="menu-item"><span>🍗 Chicken</span> <b>12k</b><input type="checkbox" name="food" value="Chicken (2pc)"></label>
-                <label class="menu-item"><span>🌯 Rolex</span> <b>6k</b><input type="checkbox" name="food" value="Rolex (Special)"></label>
-                <label class="menu-item"><span>🍟 Fries</span> <b>5k</b><input type="checkbox" name="food" value="Fries"></label>
-                <label class="menu-item"><span>🥤 Soda</span> <b>2.5k</b><input type="checkbox" name="food" value="Soda"></label>
-            </div>
+    <section class="hero">
+        <h1>FAGIE FOODS & BEVIES</h1>
+        <p>"Serene Feels"</p>
+        
+        <div class="button-group">
+            <a href="/menu" class="btn btn-menu">
+                <i class="fas fa-utensils"></i> VIEW MENU
+            </a>
 
-            <div class="input-box">
-                <textarea name="instructions" rows="2" placeholder="Notes (No onions, extra salt...)" style="padding-left:15px;"></textarea>
-            </div>
+            <a href="https://wa.me/256788849929?text=Hello%20Fagie%20Foods%20%26%20Bevies!%20I'd%20like%20to%20place%20an%20order%20from%20Buguju." 
+               class="btn btn-order" 
+               target="_blank">
+                <i class="fab fa-whatsapp"></i> ORDER ON WHATSAPP
+            </a>
+        </div>
 
-            <div class="delivery-zone">
-                <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-                    <input type="checkbox" name="delivery" onclick="document.getElementById('a').style.display=this.checked?'block':'none'">
-                    <span><i class="fas fa-truck"></i> Deliver to Mukono? (+5,000/-)</span>
-                </label>
-                <input type="text" name="address" id="a" placeholder="Where in Mukono?" style="display:none; width:100%; margin-top:15px; padding:12px; border-radius:10px; border:none;">
-            </div>
+        <br><br>
+        <a href="#" onclick="document.getElementById('adminModal').style.display='flex'" style="color:rgba(255,255,255,0.5); text-decoration:none; font-size: 0.8rem;">Staff Portal</a>
+    </section>
 
-            <button type="submit">PLACE YOUR ORDER</button>
-        </form>
+    <section class="info-bar">
+        <div class="info-card">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>Visit Us</h3>
+            <p>Buguju, Mukono Town<br>Uganda</p>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-phone-alt"></i>
+            <h3>Call to Order</h3>
+            <a href="tel:0788849929">0788849929</a>
+        </div>
+
+        <div class="info-card">
+            <i class="fas fa-truck"></i>
+            <h3>Fast Delivery</h3>
+            <p>Fresh & Hot to Buguju & Beyond<br>Every day 8 AM - 10 PM</p>
+        </div>
+    </section>
+
+    <div id="adminModal">
+        <div style="background:white; padding:40px; border-radius:20px; width:300px; text-align:center;">
+            <h3>Staff Login</h3>
+            <form action="/admin-login" method="post">
+                <input type="password" name="passcode" placeholder="Passcode" style="width:100%; padding:12px; margin-bottom:20px; border-radius:8px; border:1px solid #ddd;">
+                <button type="submit" style="width:100%; padding:12px; background:var(--dark); color:white; border:none; border-radius:8px; cursor:pointer;">Enter Dashboard</button>
+            </form>
+            <button onclick="document.getElementById('adminModal').style.display='none'" style="margin-top:15px; background:none; border:none; color:red; cursor:pointer;">Close</button>
+        </div>
     </div>
+
+    <footer>&copy; 2026 Fagie Foods & Bevies Mukono.</footer>
+
 </body>
 </html>
