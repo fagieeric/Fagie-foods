@@ -9,7 +9,7 @@ MENU_PRICES = {
     "Burger": 15000, "Pizza": 35000, "Chicken (2pc)": 12000,
     "Rolex (Special)": 6000, "Fries": 5000, "Fresh Juice": 4000, "Soda": 2500
 }
-DELIVERY_FEE = according to the distance
+DELIVERY_FEE = "Variable based on distance"
 
 @app.route('/')
 def home():
