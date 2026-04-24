@@ -10,15 +10,18 @@ MENU_PRICES = {
     "Burger": 15000, "Pizza": 35000, "Chicken (2pc)": 12000,
     "Rolex (Special)": 6000, "Fries": 5000, "Fresh Juice": 4000, "Soda": 2500
 }
-DELIVERY_FEE = 2000  # Set to 2000 UGX as requested
+DELIVERY_FEE = 2000 
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    # Changed from home.html to index.html so it matches your file
+    return render_template('index.html')
 
 @app.route('/menu')
 def menu():
-    return render_template('index.html')
+    # If your menu is a separate file named menu.html, keep this. 
+    # If your menu is inside index.html, you can delete this route.
+    return render_template('menu.html')
 
 @app.route('/admin-login', methods=['GET', 'POST'])
 def admin_login():
@@ -35,17 +38,14 @@ def place_order():
     name = request.form.get('customer_name')
     phone = request.form.get('phone')
     foods = request.form.getlist('food')
-    delivery = request.form.get('delivery') # This will be 'on' if checked
+    delivery = request.form.get('delivery') 
     addr = request.form.get('address')
     instructions = request.form.get('instructions')
 
     if not foods:
-        return "<h1>Error</h1><p>Select food!</p><a href='/menu'>Back</a>", 400
+        return "<h1>Error</h1><p>Select food!</p><a href='/'>Back</a>", 400
 
-    # Calculate subtotal
     subtotal = sum(MENU_PRICES.get(f, 0) for f in foods)
-    
-    # Calculate total: add 2000 only if delivery is selected
     current_delivery_cost = DELIVERY_FEE if delivery == 'on' else 0
     total = int(subtotal + current_delivery_cost)
     
@@ -82,6 +82,5 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    # Use the port Render provides, or default to 5000
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
