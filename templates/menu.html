@@ -53,7 +53,7 @@
     <div class="card">
         <h1><i class="fas fa-utensils" style="color: var(--gold);"></i> Fagie Menu</h1>
         
-        <form action="success.html" method="get">
+        <form action="/order" method="POST">
             <div class="input-box"><i class="fas fa-user"></i><input type="text" name="customer_name" placeholder="Full Name" required></div>
             <div class="input-box"><i class="fas fa-phone"></i><input type="tel" name="phone" placeholder="Contact Number" required></div>
 
@@ -73,7 +73,7 @@
             <div class="delivery-zone">
                 <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
                     <input type="checkbox" name="delivery" onclick="document.getElementById('a').style.display=this.checked?'block':'none'">
-                    <span><i class="fas fa-truck"></i> Deliver to Mukono? (+5,000/-)</span>
+                    <span><i class="fas fa-truck"></i> Deliver to Mukono? (+2,000/-)</span>
                 </label>
                 <input type="text" name="address" id="a" placeholder="Where in Mukono?" style="display:none; width:100%; margin-top:15px; padding:12px; border-radius:10px; border:none; color: black;">
             </div>
