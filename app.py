@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import os
 
 app = Flask(__name__)
 app.secret_key = "fagie_foods_secret_2026"
@@ -9,7 +10,7 @@ MENU_PRICES = {
     "Burger": 15000, "Pizza": 35000, "Chicken (2pc)": 12000,
     "Rolex (Special)": 6000, "Fries": 5000, "Fresh Juice": 4000, "Soda": 2500
 }
-DELIVERY_FEE = "Variable based on distance"
+DELIVERY_FEE = 2000  # Set to 2000 UGX as requested
 
 @app.route('/')
 def home():
@@ -34,15 +35,20 @@ def place_order():
     name = request.form.get('customer_name')
     phone = request.form.get('phone')
     foods = request.form.getlist('food')
-    delivery = request.form.get('delivery')
+    delivery = request.form.get('delivery') # This will be 'on' if checked
     addr = request.form.get('address')
     instructions = request.form.get('instructions')
 
     if not foods:
         return "<h1>Error</h1><p>Select food!</p><a href='/menu'>Back</a>", 400
 
+    # Calculate subtotal
     subtotal = sum(MENU_PRICES.get(f, 0) for f in foods)
-    total = int(subtotal + (DELIVERY_FEE if delivery == 'on' else 0))
+    
+    # Calculate total: add 2000 only if delivery is selected
+    current_delivery_cost = DELIVERY_FEE if delivery == 'on' else 0
+    total = int(subtotal + current_delivery_cost)
+    
     otype = f"🚚 Deliver to: {addr}" if delivery == 'on' else "🛍️ Pickup (Mukono Town)"
 
     new_order = {
@@ -55,7 +61,9 @@ def place_order():
         "type": otype,
         "status": "Pending"
     }
+    
     orders.append(new_order)
+    
     return render_template('success.html', name=name, phone=phone, food_list=foods, 
                            total=total, type=otype, instructions=instructions)
 
@@ -74,4 +82,6 @@ def logout():
     return redirect(url_for('home'))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Use the port Render provides, or default to 5000
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
