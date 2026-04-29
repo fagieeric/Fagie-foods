@@ -41,6 +41,11 @@
             background: var(--dark); color: white; padding: 25px; 
             border-radius: 20px; margin-top: 25px; transition: 0.4s;
         }
+        /* ADDED: Total display styling */
+        .total-display {
+            text-align: center; font-size: 1.4rem; font-weight: bold; color: var(--dark);
+            margin-top: 20px; padding: 10px; border-bottom: 2px dashed var(--gold);
+        }
         button { 
             width: 100%; padding: 18px; background: var(--gold); color: var(--dark); 
             border: none; border-radius: 15px; font-weight: 700; font-size: 1.1rem;
@@ -53,17 +58,17 @@
     <div class="card">
         <h1><i class="fas fa-utensils" style="color: var(--gold);"></i> Fagie Menu</h1>
         
-        <form action="/order" method="POST">
+        <form action="{{ url_for('place_order') }}" method="POST">
             <div class="input-box"><i class="fas fa-user"></i><input type="text" name="customer_name" placeholder="Full Name" required></div>
             <div class="input-box"><i class="fas fa-phone"></i><input type="tel" name="phone" placeholder="Contact Number" required></div>
 
             <div class="menu-grid">
-                <label class="menu-item"><span>🍔 Burger</span> <b>15k</b><input type="checkbox" name="food" value="Burger"></label>
-                <label class="menu-item"><span>🍕 Pizza</span> <b>35k</b><input type="checkbox" name="food" value="Pizza"></label>
-                <label class="menu-item"><span>🍗 Chicken</span> <b>12k</b><input type="checkbox" name="food" value="Chicken (2pc)"></label>
-                <label class="menu-item"><span>🌯 Rolex</span> <b>6k</b><input type="checkbox" name="food" value="Rolex (Special)"></label>
-                <label class="menu-item"><span>🍟 Fries</span> <b>5k</b><input type="checkbox" name="food" value="Fries"></label>
-                <label class="menu-item"><span>🥤 Soda</span> <b>2.5k</b><input type="checkbox" name="food" value="Soda"></label>
+                <label class="menu-item"><span>🍔 Burger</span> <b>15k</b><input type="checkbox" name="food" value="Burger" data-price="15000"></label>
+                <label class="menu-item"><span>🍕 Pizza</span> <b>35k</b><input type="checkbox" name="food" value="Pizza" data-price="35000"></label>
+                <label class="menu-item"><span>🍗 Chicken</span> <b>12k</b><input type="checkbox" name="food" value="Chicken (2pc)" data-price="12000"></label>
+                <label class="menu-item"><span>🌯 Rolex</span> <b>6k</b><input type="checkbox" name="food" value="Rolex (Special)" data-price="6000"></label>
+                <label class="menu-item"><span>🍟 Fries</span> <b>5k</b><input type="checkbox" name="food" value="Fries" data-price="5000"></label>
+                <label class="menu-item"><span>🥤 Soda</span> <b>2.5k</b><input type="checkbox" name="food" value="Soda" data-price="2500"></label>
             </div>
 
             <div class="input-box">
@@ -72,14 +77,43 @@
 
             <div class="delivery-zone">
                 <label style="display:flex; align-items:center; gap:10px; cursor:pointer;">
-                    <input type="checkbox" name="delivery" onclick="document.getElementById('a').style.display=this.checked?'block':'none'">
+                    <input type="checkbox" name="delivery" id="delivery-check" onclick="toggleAddress(this)">
                     <span><i class="fas fa-truck"></i> Deliver to Mukono? (+2,000/-)</span>
                 </label>
                 <input type="text" name="address" id="a" placeholder="Where in Mukono?" style="display:none; width:100%; margin-top:15px; padding:12px; border-radius:10px; border:none; color: black;">
             </div>
 
+            <div class="total-display" id="total-text">Total: UGX 0</div>
+
             <button type="submit">PLACE YOUR ORDER</button>
         </form>
     </div>
+
+    <script>
+        const checkboxes = document.querySelectorAll('input[name="food"]');
+        const deliveryCheck = document.getElementById('delivery-check');
+        const totalText = document.getElementById('total-text');
+
+        function toggleAddress(el) {
+            document.getElementById('a').style.display = el.checked ? 'block' : 'none';
+            calculateTotal();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    total += parseInt(cb.getAttribute('data-price'));
+                }
+            });
+            if (deliveryCheck.checked) {
+                total += 2000;
+            }
+            totalText.innerText = "Total: UGX " + total.toLocaleString();
+        }
+
+        // Add event listeners to all checkboxes
+        checkboxes.forEach(cb => cb.addEventListener('change', calculateTotal));
+    </script>
 </body>
 </html>

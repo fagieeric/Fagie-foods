@@ -1,32 +1,67 @@
-<div class="button-group">
-    <a href="{{ url_for('menu') }}" class="btn btn-menu">
-        <i class="fas fa-utensils"></i> VIEW MENU
-    </a>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fagie Foods | Mukono Town</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* I've added basic styling, but replace this with your actual CSS if you have it! */
+        body { font-family: sans-serif; text-align: center; background-color: #f8f9fa; padding: 50px; }
+        .button-group { margin-top: 30px; }
+        .btn { padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: 0.3s; }
+        .btn-menu { background-color: #e67e22; color: white; }
+        .admin-section { margin-top: 100px; border-top: 1px solid #ddd; padding-top: 20px; }
+        input { padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
 
-<script>
-    function checkPasscode() {
-        const code = document.getElementById('passcodeField').value;
-        
-        if (!code) {
-            alert("Please enter a passcode");
-            return;
+    <header>
+        <h1>🍴 FAGIE FOODS</h1>
+        <p>Delicious Meals Delivered to Your Door in Mukono Town</p>
+    </header>
+
+    <main>
+        <div class="button-group">
+            <a href="{{ url_for('menu') }}" class="btn btn-menu">
+                <i class="fas fa-utensils"></i> VIEW MENU
+            </a>
+        </div>
+    </main>
+
+    <section class="admin-section">
+        <h3>Staff Access Only</h3>
+        <input type="password" id="passcodeField" placeholder="Enter Admin Passcode">
+        <button onclick="checkPasscode()" class="btn" style="background: #34495e; color: white;">Login</button>
+    </section>
+
+    <script>
+        function checkPasscode() {
+            const code = document.getElementById('passcodeField').value;
+            
+            if (!code) {
+                alert("Please enter a passcode");
+                return;
+            }
+
+            // This creates a virtual form to send the passcode to your Python backend
+            const form = document.createElement('form');
+            form.method = 'POST';
+            
+            // This matches @app.route('/admin-login') in your app.py
+            form.action = "{{ url_for('admin_login') }}"; 
+
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'passcode';
+            input.value = code;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
         }
+    </script>
 
-        // We create a hidden form to send a POST request to your /admin-login route
-        const form = document.createElement('form');
-        form.method = 'POST';
-        
-        // This matches @app.route('/admin-login') in your app.py
-        form.action = "{{ url_for('admin_login') }}"; 
-
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'passcode';
-        input.value = code;
-
-        form.appendChild(input);
-        document.body.appendChild(form);
-        form.submit();
-    }
-</script>
+</body>
+</html>
