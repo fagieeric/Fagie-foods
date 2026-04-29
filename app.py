@@ -14,24 +14,19 @@ DELIVERY_FEE = 2000
 
 @app.route('/')
 def home():
-    # Changed from home.html to index.html so it matches your file
     return render_template('index.html')
 
 @app.route('/menu')
 def menu():
-    # If your menu is a separate file named menu.html, keep this. 
-    # If your menu is inside index.html, you can delete this route.
     return render_template('menu.html')
 
-@app.route('/admin-login', methods=['GET', 'POST'])
+@app.route('/admin-login', methods=['POST'])
 def admin_login():
-    if request.method == 'POST':
-        if request.form.get('passcode') == "1234":
-            session['admin_logged_in'] = True
-            return render_template('admin.html', orders=orders)
-    if session.get('admin_logged_in'):
+    passcode = request.form.get('passcode')
+    if passcode == "1234":
+        session['admin_logged_in'] = True
         return render_template('admin.html', orders=orders)
-    return redirect(url_for('home'))
+    return "<h1>Access Denied</h1><p>Incorrect Passcode.</p><a href='/'>Back Home</a>", 401
 
 @app.route('/order', methods=['POST'])
 def place_order():
@@ -43,12 +38,10 @@ def place_order():
     instructions = request.form.get('instructions')
 
     if not foods:
-        return "<h1>Error</h1><p>Select food!</p><a href='/'>Back</a>", 400
+        return "<h1>Error</h1><p>Select food!</p><a href='/menu'>Back</a>", 400
 
     subtotal = sum(MENU_PRICES.get(f, 0) for f in foods)
-    current_delivery_cost = DELIVERY_FEE if delivery == 'on' else 0
-    total = int(subtotal + current_delivery_cost)
-    
+    total = int(subtotal + (DELIVERY_FEE if delivery == 'on' else 0))
     otype = f"🚚 Deliver to: {addr}" if delivery == 'on' else "🛍️ Pickup (Mukono Town)"
 
     new_order = {
@@ -61,25 +54,9 @@ def place_order():
         "type": otype,
         "status": "Pending"
     }
-    
     orders.append(new_order)
-    
     return render_template('success.html', name=name, phone=phone, food_list=foods, 
                            total=total, type=otype, instructions=instructions)
-
-@app.route('/complete-order/<int:order_id>')
-def complete_order(order_id):
-    if session.get('admin_logged_in'):
-        for o in orders:
-            if o['id'] == order_id:
-                o['status'] = "Completed ✅"
-                break
-    return redirect(url_for('admin_login'))
-
-@app.route('/admin-logout')
-def logout():
-    session.pop('admin_logged_in', None)
-    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
